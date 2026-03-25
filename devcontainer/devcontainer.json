@@ -1,0 +1,18 @@
+{
+    "name": "Análisis Cinemático Streamlit",
+    "image": "mcr.microsoft.com/devcontainers/python:3.11",
+    "customizations": {
+        "codespaces": {
+            "openFiles": [
+                "main.py"
+            ]
+        }
+    },
+    // Instala las dependencias automáticamente al crear el codespace
+    "postCreateCommand": "pip install -r requirements.txt",
+    // Ejecuta el programa y abre el puerto apenas inicia
+    "postStartCommand": "streamlit run main.py --server.address 0.0.0.0",
+    "forwardPorts": [
+        8501
+    ]
+}

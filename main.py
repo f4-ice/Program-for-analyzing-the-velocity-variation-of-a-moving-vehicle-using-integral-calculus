@@ -16,8 +16,8 @@ st.divider()
 
 # --- Entradas de Datos en el Cuerpo de la Página ---
 st.subheader("1. Configuración de Parámetros Físicos")
-st.latex(r"a(t) = \frac{F_{motor} - F_{resistencia}}{m}") #
-st.latex(r"v(t) = v_0 + \int_{0}^{t} a(t) \, dt")         #
+st.latex(r"a(t) = \frac{F_{motor} - F_{resistencia}}{m}")
+st.latex(r"v(t) = v_0 + \int_{0}^{t} a(t) \, dt")
 
 col_params1, col_params2 = st.columns(2)
 
@@ -33,19 +33,18 @@ with col_params2:
 st.divider()
 
 # --- Lógica Matemática (Cálculo Integral) ---
-# Cálculo de la aceleración neta inicial
+# Cálculo de la aceleración: a(t) = (F_motor - F_resistencia) / m
 f_neta = f_motor - f_resistencia
-aceleracion_base = f_neta / m 
+aceleracion_constante = f_neta / m 
 
 # Definición del diferencial de tiempo (dt) para la aproximación de la integral
 dt = 0.1 
 tiempo = np.arange(0, t_final + dt, dt)
 
-# Modelo de aceleración: Suponemos que la aceleración decae levemente por la eficiencia mecánica
-# a(t) = a_base * e^(-0.05t)
-aceleracion_t = aceleracion_base * np.exp(-0.05 * tiempo) 
+# Modelo de aceleración: a(t) es constante en el tiempo
+aceleracion_t = np.full_like(tiempo, aceleracion_constante)
 
-# Teorema Fundamental del Cálculo: v(t) = v0 + ∫ a(t) dt
+# Cálculo de la velocidad: v(t) = v_0 + ∫ a(t) dt
 # Usamos el método de acumulación (Suma de Riemann) para integrar
 velocidad = v0 + np.cumsum(aceleracion_t) * dt 
 
